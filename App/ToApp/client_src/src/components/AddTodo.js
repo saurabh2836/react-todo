@@ -10,6 +10,7 @@ class AddTodo extends Component {
       .request({
         method: "post",
         url: "http://localhost:3000/api/TodoModels",
+        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
         data: newTodo
       })
       .then(response => {

@@ -17,7 +17,9 @@ class TodoDetails extends Component {
   getMeetups() {
     let todoId = this.props.match.params.id;
     axios
-      .get(`http://localhost:3000/api/TodoModels/${todoId}`)
+      .get(`http://localhost:3000/api/TodoModels/${todoId}`, {
+        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` }
+      })
       .then(response => {
         this.setState({ details: response.data }, () => {
           console.log(this.state);
@@ -29,7 +31,9 @@ class TodoDetails extends Component {
     let TodoId = this.state.details.id;
 
     axios
-      .delete(`http://localhost:3000/api/TodoModels/${TodoId}`)
+      .delete(`http://localhost:3000/api/TodoModels/${TodoId}`, {
+        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` }
+      })
       .then(response => {
         this.props.history.push("/");
       })

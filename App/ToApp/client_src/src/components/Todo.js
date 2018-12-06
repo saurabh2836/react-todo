@@ -15,7 +15,9 @@ class Todo extends Component {
   }
   getTodos() {
     axios
-      .get("http://localhost:3000/api/TodoModels")
+      .get("http://localhost:3000/api/TodoModels", {
+        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` }
+      })
       .then(response => {
         this.setState(
           {

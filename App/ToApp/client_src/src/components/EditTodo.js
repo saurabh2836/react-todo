@@ -30,17 +30,20 @@ class EditTodo extends Component {
       .request({
         method: "put",
         url: `http://localhost:3000/api/TodoModels/${this.state.id}`,
+        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
         data: newTodo
       })
       .then(response => {
-        this.props.history.push("/");
+        this.props.history.push("/todo");
       })
       .catch(err => console.log(err));
   }
   getTodos() {
     let todoId = this.props.match.params.id;
     axios
-      .get(`http://localhost:3000/api/TodoModels/${todoId}`)
+      .get(`http://localhost:3000/api/TodoModels/${todoId}`, {
+        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` }
+      })
       .then(response => {
         this.setState(
           {
