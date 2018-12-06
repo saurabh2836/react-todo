@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import axios from "axios";
 import { Link } from "react-router-dom";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 class TodoDetails extends Component {
   constructor(props) {
@@ -12,9 +14,19 @@ class TodoDetails extends Component {
   }
 
   componentWillMount() {
-    this.getMeetups();
+    this.getTodos();
   }
-  getMeetups() {
+  printDocument() {
+    const input = document.getElementById("divToPrint");
+    html2canvas(input).then(canvas => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      pdf.addImage(imgData, "JPEG", 0, 0);
+      // pdf.output('dataurlnewwindow');
+      pdf.save("download.pdf");
+    });
+  }
+  getTodos() {
     let todoId = this.props.match.params.id;
     axios
       .get(`http://localhost:3000/api/TodoModels/${todoId}`, {
@@ -46,14 +58,28 @@ class TodoDetails extends Component {
         <Link className="btn grey" to="/">
           Back
         </Link>
-        <h1>{this.state.details.topic}</h1>
-        <ul className="collection">
-          <li className="collection-item">Topic:{this.state.details.topic}</li>
-          <li className="collection-item">Name:{this.state.details.name}</li>
-        </ul>
+
+        <h1>
+          {this.state.details.topic}{" "}
+          <button
+            onClick={this.printDocument.bind(this)}
+            className="btn blue right"
+          >
+            Export PDF
+          </button>
+        </h1>
+        <div id="divToPrint" className="mt4">
+          <ul className="collection">
+            <li className="collection-item">
+              Topic:{this.state.details.topic}
+            </li>
+            <li className="collection-item">Name:{this.state.details.name}</li>
+          </ul>
+        </div>
         <Link className="btn" to={`/todo/edit/${this.state.details.id}`}>
           Edit
         </Link>
+
         <button onClick={this.onDelete.bind(this)} className="btn red right">
           Delete
         </button>

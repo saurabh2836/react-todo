@@ -5,6 +5,8 @@
   "homepage": "http://saurabhkamble.github.io/react-todo",
   "dependencies": {
     "axios": "^0.18.0",
+    "html2canvas": "^1.0.0-alpha.12",
+    "jspdf": "^1.4.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-router": "^4.3.1",
