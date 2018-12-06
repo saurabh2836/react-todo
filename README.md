@@ -52,3 +52,32 @@ $ npm run build
 ```
 
 This will put all static assets in the Loopback "client" folder and update the main app
+
+
+
+Functionality 
+
+
+###  Todo Client
+ 
+1. User Login
+
+2. Add a task
+
+3. Delete task(s)
+
+4. Update a task
+
+5. List of tasks
+
+
+
+### Todo server
+1.Auth Management
+
+2.User Management
+
+3.Rest APIs to perform all the necessary actions mentioned above.
+
+ 
+
